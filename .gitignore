@@ -1,0 +1,8 @@
+//generated node files
+node_modules
+
+//generated bower libs
+public/libs
+
+// mac
+.DS_STORE
