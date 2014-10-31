@@ -2,7 +2,7 @@
 node_modules
 
 //generated bower libs
-public/libs
+public/assets/libs
 
 // mac
 .DS_STORE

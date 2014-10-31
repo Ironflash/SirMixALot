@@ -3,7 +3,7 @@
 var mongoose = require('mongoose');
 
 //ingredient schema
-var ingredientSchema = new Schema({
+var ingredientSchema = new mongoose.Schema({
     name : { type: String, require: true},
     amount : { type: Number, requre: true }
 });
