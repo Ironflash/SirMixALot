@@ -31,11 +31,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // override with the X-HTTP-Method-Override header in the request. simulate DELETE/PUT
 app.use(methodOverride('X-HTTP-Method-Override'));
 
-// set the static files location /public/assets/img will be /img for users
-app.use(express.static(__dirname + '/public/assets'));
+// set the static files location /public/img will be /img for users
+app.use(express.static(__dirname + '/public'));
 
 // routes ==================================================
-require('./app/routes')(app); // configure our routes
+require('./app/routes.js')(app); // configure our routes
 
 // start app ===============================================
 // startup our app at http://localhost:8080

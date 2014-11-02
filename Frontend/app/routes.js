@@ -2,6 +2,7 @@
 
 // grab the drink model we just created
 var Drink = require('./models/drink');
+var path = require('path');
 
     module.exports = function(app) {
 
