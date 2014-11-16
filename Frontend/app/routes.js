@@ -1,31 +1,103 @@
 // app/routes.js
 
 // grab the drink model we just created
+var express        = require('express');
 var Drink = require('./models/drink');
-var path = require('path');
 
     module.exports = function(app) {
 
-        // server routes ===========================================================
-        // handle things like api calls
-        // authentication routes
+        // ROUTES FOR OUR API
+        // =============================================================================
 
-        // sample api route
-        app.get('/api/drinks', function(req, res) {
-            // use mongoose to get all nerds in the database
-            Nerd.find(function(err, nerds) {
+        // create our router
+        var router = express.Router();
 
-                // if there is an error retrieving, send the error.
-                                // nothing after res.send(err) will execute
-                if (err)
-                    res.send(err);
-
-                res.json(nerds); // return all nerds in JSON format
-            });
+        // middleware to use for all api requests
+        router.use(function(req, res, next) {
+            // do logging
+            console.log('Something is happening.');
+            next();
         });
 
-        // route to handle creating goes here (app.post)
-        // route to handle delete goes here (app.delete)
+        // on routes that end in /drinks
+        // ----------------------------------------------------
+        router.route('/drinks')
+
+            //create a drink (accessed at POST http://localhost:8080/api/drinks)
+            .post(function(req, res) {
+
+                Drink.create({
+                    name: req.body.name
+                }, function(err, post) {
+                    if(err)
+                        res.send(err);
+
+                        res.json({ message: 'Drink created!' });
+                });
+
+
+            })
+
+            // get all the bears (accessed at GET http://localhost:8080/api/drinks)
+            .get(function(req, res) {
+                // use mongoose to get all drinks in the database
+                Drink.find(function(err, drinks) {
+
+                    // if there is an error retrieving, send the error.
+                    // nothing after res.send(err) will execute
+                    if (err)
+                        res.send(err);
+
+                    res.json(drinks); // return all drinks in JSON format
+                });
+            });
+
+        // on routes that end in /drinks/:drink_id
+        // ----------------------------------------------------
+        router.route('/drinks/:drink_id')
+
+            // get the bear with that id
+            .get(function(req, res) {
+                Drink.findById(req.params.drink_id, function(err, drink) {
+                    if (err)
+                        res.send(err);
+                    res.json(drink);
+                });
+            })
+
+            // update the drink with this id
+            .put(function(req, res) {
+                Drink.findById(req.params.drink_id, function(err, drink) {
+
+                    if (err)
+                        res.send(err);
+
+                    drink.name = req.body.name;
+                    drink.save(function(err) {
+                        if (err)
+                            res.send(err);
+
+                        res.json({ message: 'Drink updated!' });
+                    });
+
+                });
+            })
+
+            // delete the bear with this id
+            .delete(function(req, res) {
+                Drink.remove({
+                    _id: req.params.drink_id
+                }, function(err, drink) {
+                    if (err)
+                        res.send(err);
+
+                    res.json({ message: 'Successfully deleted' });
+                });
+            });
+
+
+        // REGISTER OUR ROUTES -------------------------------
+        app.use('/api', router);
 
         // frontend routes =========================================================
         // route to handle all angular requests
