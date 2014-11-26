@@ -1,7 +1,7 @@
 // app/routes.js
 
 // grab the drink model we just created
-var express        = require('express');
+var express  = require('express');
 var Drink = require('./models/drink');
 
     module.exports = function(app) {
@@ -38,25 +38,27 @@ var Drink = require('./models/drink');
 
             })
 
-            // get all the bears (accessed at GET http://localhost:8080/api/drinks)
+            // get all the drinks (accessed at GET http://localhost:8080/api/drinks)
             .get(function(req, res) {
-                // use mongoose to get all drinks in the database
+                // // use mongoose to get all drinks in the database
                 Drink.find(function(err, drinks) {
 
-                    // if there is an error retrieving, send the error.
-                    // nothing after res.send(err) will execute
-                    if (err)
-                        res.send(err);
+                     // if there is an error retrieving, send the error.
+                     // nothing after res.send(err) will execute
+                     if (err)
+                         res.send(err);
 
-                    res.json(drinks); // return all drinks in JSON format
+                     res.json(drinks); // return all drinks in JSON format
                 });
+
+
             });
 
         // on routes that end in /drinks/:drink_id
         // ----------------------------------------------------
         router.route('/drinks/:drink_id')
 
-            // get the bear with that id
+            // get the drink with that id
             .get(function(req, res) {
                 Drink.findById(req.params.drink_id, function(err, drink) {
                     if (err)
@@ -83,7 +85,7 @@ var Drink = require('./models/drink');
                 });
             })
 
-            // delete the bear with this id
+            // delete the drink with this id
             .delete(function(req, res) {
                 Drink.remove({
                     _id: req.params.drink_id

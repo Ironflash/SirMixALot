@@ -4,6 +4,8 @@ angular.module('DrinkCtrl', []).controller('DrinkController', function($scope, D
     //Drink is from the drink service
     Drink.get()
         .success(function(drinks) {
+            //var jsonObject = JSON.parse(drinks);
+            //$scope.drinks = jsonObject.getElementById("result");
             $scope.drinks = drinks;
         });
 

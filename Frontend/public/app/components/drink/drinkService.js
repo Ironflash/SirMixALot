@@ -5,6 +5,7 @@ angular.module('DrinkService', []).factory('Drink', ['$http', function($http) {
         // call to get all drinks
         get : function() {
             return $http.get('/api/drinks');
+            //return $http.get('http://addb.absolutdrinks.com/drinks/?apiKey=0885de049d3847a7bc06842c5f9ba6c7');
         },
 
 
