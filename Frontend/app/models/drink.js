@@ -42,4 +42,4 @@ module.exports = mongoose.model('Drink', {
     actions: {type :	[entityReference], required : true}, // to action
     brands: {type :	[String], required : false},
     tags: {type :	[mongoose.Schema.Types.ObjectId], ref: "Tag", required : false}
-},'drink-import');
+});
